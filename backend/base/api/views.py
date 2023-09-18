@@ -136,7 +136,7 @@ def generate_tokens(user):
 
         tokens_generated += 1
 
-        time.sleep(15)  # Esperar 60 segundos antes de generar el siguiente token
+        time.sleep(60)  # Esperar 60 segundos antes de generar el siguiente token
 
     if tokens_generated == max_tokens or stop_generate_tokens:
         TokenOTP.objects.filter(user=user, is_active=True).update(is_active=False)
