@@ -11,5 +11,6 @@ class TokenOTPFilter(FilterSet):
             "user__id": ["exact"],
             "token": ["icontains"],
             "is_used": ["exact"],
+            "is_active": ["exact"],
             "created_at": ["gte", "lte", "exact", "range"],
         }
