@@ -64,7 +64,7 @@ class LoginView(APIView):
             )
         else:
             return Response(
-                {"detail": "Error en el inicio de sesión"},
+                "Error en credenciales",
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
@@ -73,19 +73,17 @@ class LogoutView(APIView):
     def post(self, request):
         logout(request)
         return Response(
-            {"detail": "Inicio de sesion exitoso!"}, status=status.HTTP_200_OK
+            {"detail": "Su sesión se ha cerrado exitosamente."},
+            status=status.HTTP_200_OK,
         )
 
 
 class TokensView(ListAPIView, GenericViewSet):
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (AllowAny,)
     serializer_class = TokenOTPSerializer
     filter_backends = [DjangoFilterBackend]
     filterset_class = TokenOTPFilter
-
-    def get_queryset(self):
-        queryset = TokenOTP.objects.filter(user=self.request.user)
-        return queryset
+    queryset = TokenOTP.objects.all()
 
 
 max_tokens = 5

@@ -1,6 +1,6 @@
 import { baseApi } from "../api/index";
 
-export const tokenApi = baseApi.injectEndpoints({
+const tokenApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
     tokens: build.query({
       query: (params) => {

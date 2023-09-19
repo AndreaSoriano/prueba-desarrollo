@@ -9,6 +9,7 @@ class TokenOTPFilter(FilterSet):
         model = TokenOTP
         fields = {
             "user__id": ["exact"],
+            "user__username": ["exact"],
             "token": ["icontains"],
             "is_used": ["exact"],
             "is_active": ["exact"],

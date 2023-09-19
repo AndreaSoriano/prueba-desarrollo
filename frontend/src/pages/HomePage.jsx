@@ -10,7 +10,11 @@ const HomePage = () => {
     <>
       <Title>What you want to do?</Title>
       <Space size="large">
-        <Button type="primary" icon={<UserOutlined />}>
+        <Button
+          type="primary"
+          icon={<UserOutlined />}
+          onClick={() => navigate(generatePath(tokenRoutes.LOGIN))}
+        >
           Login
         </Button>
         <Button
