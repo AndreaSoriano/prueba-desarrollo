@@ -17,7 +17,7 @@ const User = () => {
   const { user } = useSelector(({ auth }) => auth);
   const navigate = useNavigate();
   const { data, isFetching } = useTokensQuery({
-    user__username: "test-postman",
+    user__username: user,
   });
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
