@@ -16,5 +16,6 @@ export const baseApi = createApi({
       return headers;
     },
   }),
+  tagTypes: ["Token"],
   endpoints: () => ({}),
 });

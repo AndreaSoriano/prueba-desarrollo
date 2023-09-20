@@ -91,7 +91,7 @@ const SignUp = () => {
             <Input.Password />
           </Form.Item>
           <Form.Item>
-            <Button htmlType="submit" loading={isLoading}>
+            <Button htmlType="submit" loading={isLoading} type="primary">
               Sign Up
             </Button>
           </Form.Item>

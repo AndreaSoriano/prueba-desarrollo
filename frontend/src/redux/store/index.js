@@ -3,7 +3,6 @@ import { setupListeners } from "@reduxjs/toolkit/query";
 
 import createRootReducer from "../reducers";
 
-// import { utilitiesApi } from '@appRedux/api/Utilities';
 import { baseApi } from "../api/index";
 
 const store = configureStore({

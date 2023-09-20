@@ -1,8 +1,10 @@
 import { baseApi } from "../api/index";
 
 const tokenApi = baseApi.injectEndpoints({
+  tagTypes: ["Token"],
   endpoints: (build) => ({
     tokens: build.query({
+      providesTags: ["Token"],
       query: (params) => {
         return {
           url: `tokens`,
@@ -11,6 +13,7 @@ const tokenApi = baseApi.injectEndpoints({
       },
     }),
     generateToken: build.mutation({
+      invalidatesTags: ["Token"],
       query: () => {
         return {
           url: `generate_tokens`,
@@ -19,10 +22,12 @@ const tokenApi = baseApi.injectEndpoints({
       },
     }),
     tokenUse: build.mutation({
-      query: () => {
+      invalidatesTags: ["Token"],
+      query: (body) => {
         return {
           url: `use_generated_token`,
           method: "POST",
+          body,
         };
       },
     }),

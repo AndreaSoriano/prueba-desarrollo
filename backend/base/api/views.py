@@ -41,7 +41,7 @@ class RegisterView(APIView):
             instance = user_form.save()
             Token.objects.create(user=instance)
             user = UserSerializer(instance)
-            return Response("Usuario {0} creado!".format(user.data["username"]))
+            return Response("User {0} created!".format(user.data["username"]))
         return Response(user_form.errors.values(), status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -64,7 +64,7 @@ class LoginView(APIView):
             )
         else:
             return Response(
-                "Error en credenciales",
+                "Error in credentials",
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
@@ -73,7 +73,7 @@ class LogoutView(APIView):
     def post(self, request):
         logout(request)
         return Response(
-            {"detail": "Su sesión se ha cerrado exitosamente."},
+            "Your session has been closed successfully",
             status=status.HTTP_200_OK,
         )
 
@@ -109,13 +109,11 @@ class GenerateTokensView(APIView):
             generate_tokens_thread.daemon = True
             generate_tokens_thread.start()
 
-            return Response(
-                {"detail": "Generación de tokens iniciada"}, status=status.HTTP_200_OK
-            )
+            return Response("Token generation started", status=status.HTTP_200_OK)
 
         else:
             return Response(
-                {"detail": "Generación de tokens ya está en curso"},
+                "Token generation is already in progress",
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
@@ -151,9 +149,7 @@ class StopGenerateTokensView(APIView):
         TokenOTP.objects.filter(user=user, is_active=True).update(is_active=False)
 
         stop_generate_tokens = True
-        return Response(
-            {"detail": "Generación de tokens detenida"}, status=status.HTTP_200_OK
-        )
+        return Response("Token generation stopped", status=status.HTTP_200_OK)
 
 
 class UseGeneratedTokenView(APIView):
@@ -169,9 +165,7 @@ class UseGeneratedTokenView(APIView):
             user=user, is_active=True, is_used=False
         ).last()
         if input_token == None:
-            return Response(
-                {"detail": "Se esperaba un token"}, status=status.HTTP_400_BAD_REQUEST
-            )
+            return Response("A token was expected", status=status.HTTP_400_BAD_REQUEST)
         if last_token_active != None:
             if input_token == last_token_active.token:
                 last_token_active.is_active = False
@@ -180,14 +174,10 @@ class UseGeneratedTokenView(APIView):
 
                 stop_generate_tokens = True
                 return Response(
-                    {"detail": "Ingresó correctamente el token"},
+                    "Correct token",
                     status=status.HTTP_200_OK,
                 )
             else:
-                return Response(
-                    {"detail": "Token incorrecto"}, status=status.HTTP_400_BAD_REQUEST
-                )
+                return Response("Incorrect token", status=status.HTTP_400_BAD_REQUEST)
         else:
-            return Response(
-                {"detail": "No tiene token activo"}, status=status.HTTP_400_BAD_REQUEST
-            )
+            return Response("No active token", status=status.HTTP_400_BAD_REQUEST)

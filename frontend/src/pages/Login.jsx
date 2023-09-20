@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Button, Form, Input, Typography, notification } from "antd";
 import { useDispatch } from "react-redux";
 import { useLoginMutation } from "../redux/api/auth";
@@ -77,7 +77,7 @@ const Login = () => {
             <Input.Password />
           </Form.Item>
           <Form.Item>
-            <Button htmlType="submit" loading={isLoading}>
+            <Button htmlType="submit" type="primary" loading={isLoading}>
               Login
             </Button>
           </Form.Item>
